@@ -16,7 +16,7 @@ def list_s3_contents(prefix=''):
         response = s3.list_objects(Bucket=S3_BUCKET_NAME, Prefix=prefix)
         contents = response.get('Contents', [])
         return [obj['Key'] for obj in contents]
-            except NoCredentialsError:
+    except NoCredentialsError:
         print('AWS credentials not available or incorrect.')
     except Exception as e:
         print(f'Error listing S3 contents: {e}')
