@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S3 File Manager</title>
+</head>
+<body>
+    <h1>S3 File Manager</h1>
+
+    <form action="/create_bucket" method="post">
+    <label>Create Bucket:</label>
+    <input type="text" name="bucket_name" required >
+    <button type="submit">Create</button>
+    </form>
+
+
+    <form action="/delete_bucket" method="post">
+        <label>Delete Bucket:</label>
+        <input type="text" name="bucket_name" required >
+        <button type="submit">Delete</button>
+    </form>
+
+    <form action="/create_folder" method="post">
+        <label>Create Folder:</label>
+        <input type="text" name="folder_name" required placeholder="Folder name">
+        <input type="text" name="bucket_name" required placeholder="Bucket Name">
+        <button type="submit">Create</button>
+    </form>
+
+    <form action="/delete_folder" method="post">
+        <label>Delete Folder:</label>
+        <input type="text" name="folder_name" required placeholder="Folder Name">
+        <input type="text" name="bucket_name" required placeholder="Bucket Name">
+        <button type="submit">Delete</button>
+    </form>
+
+    <form action="/upload_file" method="post" enctype="multipart/form-data">
+        <label>Upload File:</label>
+        <input type="file" name="file" required>
+        <input type="text" name="folder_name" placeholder="Folder Name">
+        <input type="text" name="bucket_name" required placeholder="Bucket Name">
+
+
+
+        <button type="submit">Upload</button>
+    </form>
+
+    <form action="/delete_file" method="post" enctype="multipart/form-data">
+        <label>Delete File:</label>
+        <input type="text" name="key" required placeholder="File Name">
+        <input type="text" name="folder_name" placeholder="Folder Name">
+        <input type="text" name="bucket_name" required placeholder="Bucket Name">
+        <button type="submit">Delete</button>
+    </form>
+
+    <form action="/copy_file" method="post" enctype="multipart/form-data">
+        <label>Copy File:</label>
+        <input type="text" name="source_key" required placeholder="file name" >
+        <input type="text" name="source_bucket" required placeholder="Source bucket">
+        <input type="text" name="destination_bucket" required placeholder="Destination bucket">
+        <button type="submit">Copy</button>
+    </form>
+
+    <form action="/move_file" method="post">
+        <label>Move File:</label>
+        <input type="text" name="source_key" required placeholder="file name">
+        <input type="text" name="source_bucket" required placeholder="Source bucket">
+        <input type="text" name="destination_bucket" required placeholder="Destination bucket">
+        <button type="submit">Move</button>
+    </form>
+
+
+
+
+    <h2>S3 Buckets and Contents</h2>
+    {% for bucket, contents in bucket_contents.items() %}
+        <h2>{{ bucket }}</h2>
+        <ul>
+            {% for file in contents %}
+                <li>{{ file }}</li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+
+
+
+</body>
+</html>
